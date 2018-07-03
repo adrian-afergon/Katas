@@ -1,5 +1,10 @@
 function calculate(expression) {
-    const separator = ',';
+    let separator = ',';
+    let separatorPattern = '//#';
+    if (expression.startsWith(separatorPattern)) {
+        indexSeparator = expression.indexOf(separatorPattern);
+        separator = expression.substring(indexSeparator + 1, 1);
+    }
     const numbers = expression.split(separator);
 
     let result = 0;
