@@ -1,6 +1,9 @@
-function calculate(numberParams) {
-    const separator = ',';
-    return numberParams
+function calculate(expresion) {
+    let separator = ',';
+    if (expresion.startsWith('//')){
+
+    }
+    return expresion
         .split(separator)
         .map(value => Number(value))
         .filter(number => !isNaN(number))
@@ -8,6 +11,10 @@ function calculate(numberParams) {
             previousValue + currentValue,
             0
         );
+}
+
+function extractSeparator(numberParams) {
+
 }
 
 module.exports = calculate;
