@@ -16,8 +16,15 @@ describe('String calculator', () => {
         expect(result).toEqual(0);
     })
 
-    it('Numeros separados por comas', () => {
+    it('Valores grandes', () => {
         const result = strCalculator('3, 2');
         expect(result).toEqual(5);
     });
+
+    it('Valores erroneos', () => {
+        const result = strCalculator('3, 2');
+        expect(result).not.toEqual(4);
+    });
+
+
 })
