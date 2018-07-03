@@ -1,5 +1,5 @@
-function strCalculator() {
+function calculate() {
     return 2
 }
 
-module.exports = strCalculator;
+module.exports = calculate;
