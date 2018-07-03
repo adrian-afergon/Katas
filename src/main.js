@@ -1,23 +1,46 @@
 function sumNumbersFrom(expression) {
-    let separator = ',';
+
     const separatorPattern = '//';
     const stringSeparator = ';';
 
-    if (expression.startsWith(separatorPattern)) {
-        let configuration = expression.split(stringSeparator)[0];
-        expression = expression.split(stringSeparator)[1];
-        indexSeparator = configuration.indexOf(separatorPattern);
-        separator = configuration.substring(indexSeparator + separatorPattern.length);
+    function splitBy(expression, separator) {
+        return expression.split(separator);
     }
-    const numbers = expression.split(separator);
-    let result = 0;
-    for (let index =0; index < numbers.length; index++) {
-        if (!isNaN(numbers[index])) {
-            result += Number(numbers[index]);
-        }  
+
+    function getSeparator(separatorPattern, expression) {
+        const configuration = splitBy(expression, stringSeparator)[0]
+        const indexSeparator = configuration.indexOf(separatorPattern);
+        return configuration.substring(indexSeparator + separatorPattern.length);
     }
-    return result;
+
+    function computeResultFrom(numbers) {
+        let result = 0;
+        for (let index =0; index < numbers.length; index++) {
+            if (!isNaN(numbers[index])) {
+                result += Number(numbers[index]);
+            }  
+        }
+        return result;
+    }
+
+    function hasPattern(expression) {
+        return expression.startsWith(separatorPattern)
+    }
+
+    function calculate (expression){
+        let separator = ',';
+        if (hasPattern(expression)) {
+            separator = getSeparator(separatorPattern, expression)
+            expression = splitBy(expression, stringSeparator)[1]
+        }
+        const numbers = splitBy(expression, separator)
+        return computeResultFrom(numbers);
+    }
+
+    return calculate(expression);
 }
+
+
 
 
 module.exports = sumNumbersFrom;
