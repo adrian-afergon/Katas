@@ -1,6 +1,9 @@
-
+/**
+ * 
+ * @param {string} password 
+ */
 function isValidPassword(password) {
-    return false;
+    return (password.length >= 6);
 }
   
 module.exports = isValidPassword
