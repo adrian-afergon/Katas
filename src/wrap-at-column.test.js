@@ -17,7 +17,10 @@ describe('wrap at column length', () => {
   it('returns the same string if column width is bigger', () => { 
     expect(wrapAtColumn('hola', 8)).toEqual('hola')
   })
-  it('wraps the text with the column width', () => { 
+  it('wraps the text with the column width of one', () => { 
     expect(wrapAtColumn('hola', 1)).toEqual('h\no\nl\na')
+  })
+  xit('wraps the text with the column width of two', () => { 
+    expect(wrapAtColumn('hola', 2)).toEqual('ho\nla')
   })
 })
