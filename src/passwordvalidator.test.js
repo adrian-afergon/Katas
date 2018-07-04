@@ -15,7 +15,7 @@ describe('the password validator', () => {
     expect(isValidPassword('qeDjhf')).toEqual(false)
   })
 
-  xit('rejects a password without a uppercase', () => {
+  it('rejects a password without a uppercase', () => {
     expect(isValidPassword('h0la4ll')).toEqual(false)
   })
 
