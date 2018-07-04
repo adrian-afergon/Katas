@@ -19,7 +19,7 @@ describe('the password validator', () => {
     expect(isValidPassword('h0la4ll')).toEqual(false)
   })
 
-  xit('rejects a password without a lowercase', () => {
+  it('rejects a password without a lowercase', () => {
     expect(isValidPassword('H0LA4LL')).toEqual(false)
   })
 
