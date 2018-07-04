@@ -10,4 +10,7 @@ describe('the password validator', () => {
   it('rejects a password with less than 6 chars', () => {
     expect(isValidPassword('qed')).toEqual(false)
   })
+  it('accepts a password with more than 6 chars', () => {
+    expect(isValidPassword('qedjhfl')).toEqual(true)
+  })
 })
