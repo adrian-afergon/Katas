@@ -3,11 +3,15 @@
  * @param {string} password 
  */
 function isValidPassword(password) {
-    return isLengthGreaterThan(password, 6) && containsDigit(password) && containsUpperCase(password) && containsLowerCase(password);
+
+    return hasMinimumLength(password)
+        && containsDigit(password)
+        && containsUpperCase(password)
+        && containsLowerCase(password);
 }
 
-function isLengthGreaterThan(text, number) {
-    return text.length >= number;
+function hasMinimumLength(text) {
+    return text.length >= 6;
 }
 
 function containsDigit(text) {
