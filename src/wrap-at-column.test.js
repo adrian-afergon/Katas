@@ -5,6 +5,7 @@ describe('wrap at column length', () => {
    * "", 1 => ""
    * "hola", 8 => hola
    * "hola", 1 => h\no\nl\na
+   * "hola", 2 => ho\nla
    * "hola que", 6 => hola\nque
    * "hola que tal", 6 => hola\nque\ntal
    * 1, 1 => throws Error
