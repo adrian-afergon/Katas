@@ -23,4 +23,7 @@ describe('wrap at column length', () => {
   it('wraps the text with the column width of two', () => { 
     expect(wrapAtColumn('hola', 2)).toEqual('ho\nla')
   })
+  it('wraps the text at the left space at the column width', () => { 
+    expect(wrapAtColumn('hola que', 6)).toEqual('hola\nque')
+  })
 })
