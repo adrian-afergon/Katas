@@ -10,7 +10,7 @@ const sumNumbersFrom = require('./main');
     Sumar numeros con separador distinto
 */
 
-describe('String calculator', () => {
+xdescribe('String calculator', () => {
     describe('given comma separator', () => {
         it ('should sum one number', () =>{
             expect(sumNumbersFrom("1")).toBe(1);
