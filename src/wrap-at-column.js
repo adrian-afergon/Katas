@@ -2,12 +2,11 @@ function wrapAtColumn(text, columnWidth) {
   if (text.length < columnWidth) {
     return text
   }
-  const arr = []
-  let i = 0
 
-  while(i < text.length) {
-    arr.push(text.substr(i, columnWidth))
-    i+=columnWidth
+  const arr = [];
+
+  for (let i = 0; i < text.length; i+=columnWidth) {
+    arr.push(text.substr(i, columnWidth)) 
   }
 
   return arr.join('\n')
