@@ -11,17 +11,17 @@ describe('wrap at column length', () => {
    * 1, 1 => throws Error
    * "asdas", "asdasd" => throws Error
    */
-  xit('returns blank string with in empty string', () => {
-    expect(wrapAtColumn('', 1)).toEqual('')
-  })
-  xit('returns the same string if column width is bigger', () => { 
+  it('returns the same string if column width is bigger', () => { 
     expect(wrapAtColumn('hola', 8)).toEqual('hola')
   })
-  xit('returns the same string if column width is bigger', () => { 
-    expect(wrapAtColumn('hola que', 5)).toEqual('hola\nque')
+  it('wraps the text with the column width of one', () => { 
+    expect(wrapAtColumn('ho', 1)).toEqual('h\no')
   })
-  xit('wraps the text with the column width of one', () => { 
+  it('wraps the text with the column width of one', () => { 
     expect(wrapAtColumn('hola', 1)).toEqual('h\no\nl\na')
+  })
+  xit('returns the one word in one line', () => { 
+    expect(wrapAtColumn('hola que', 4)).toEqual('hola\nque')
   })
   xit('wraps the text with the column width of two', () => { 
     expect(wrapAtColumn('hola', 2)).toEqual('ho\nla')

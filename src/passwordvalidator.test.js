@@ -7,7 +7,7 @@ describe('the password validator', () => {
     * min 1 uppercase
     * min 1 lowercase
     */
-  it('rejects a password with less than 6 chars', () => {
+  it('rejects a password with length not valid', () => {
     expect(isValidPassword('H0la')).toEqual(false)
   })
 

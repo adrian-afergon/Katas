@@ -1,27 +1,10 @@
 function wrapAtColumn(text, columnWidth) {
-  if (text.length < columnWidth) {
-    return text
+
+  if (text.length > columnWidth) {
+    return text.substring(0, columnWidth) + '\n' + text.substring(columnWidth);
   }
 
-  const arr = [];
-
-  for (let i = 0; i < text.length; i+=columnWidth) {
-    let j = i
-    while (text[j] !== ' ' && j > 0) {
-      j--;
-    }
-
-    // console.log(i, j, columnWidth)
-
-    if (j < 1) {
-      arr.push(text.substr(i, columnWidth))
-    } else {
-      arr.push(text.substr(i, j))
-      i = j
-    }
-  }
-
-  return arr.join('\n');
+  return text;
 }
 
 module.exports = wrapAtColumn
