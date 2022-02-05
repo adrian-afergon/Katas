@@ -1,14 +1,14 @@
 {
-  "name": "stringcalculator",
+  "name": "password-validator-2018",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "password-validator.js",
   "scripts": {
     "test": "jest"
   },
-  "author": "",
+  "author": "Adrian Ferrera Gonzalez",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^23.2.0"
+    "jest": "^27.5.0"
   }
 }
