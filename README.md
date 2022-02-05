@@ -24,3 +24,12 @@ the different *Katas*, and inside them each independent project with different s
 ```
 
 Each Kata should contain their own README.md explaining the statement of the exercise.
+
+## Index
+
+- [Billing kata](./billing-kata/README.md)
+- [Mars Rover](./marsRover/README.md)
+- [Maxibon](./maxibon-kata/README.md)
+- [Password Validator](./password-validator/README.md)
+- [String Calculator](./string-calculator/README.md)
+- [Wrap at Column](./wrap-at-column/README.md)
