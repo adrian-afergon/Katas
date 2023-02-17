@@ -1,11 +1,13 @@
+type SubscribeCallback = (event: SensorEvent) => void
+enum Signals {
+    START_MOVEMENT = 'startMovement',
+    STOP_MOVEMENT = 'stopMovement'
 
-import * as fs from "fs";
-import * as path from "path";
-
-type nSubscribeCallback = (event: SensorEvent) => void
-
+}
 interface Sensor {
-    suscribe: (fn: nSubscribeCallback) => void
+    subscribe: (fn: SubscribeCallback) => void
+
+    notify(signal: Signals): void;
 }
 
 interface VideoRecorder {
@@ -14,15 +16,17 @@ interface VideoRecorder {
 
 
 interface SensorEvent {
-    signal: string
+    signal: Signals
 }
 
 class Orchestrator {
-    constructor(private readonly sensor: Sensor, private readonly videoRecorder: VideoRecorder) {}
+    constructor(private readonly sensor: Sensor,
+                private readonly videoRecorder: VideoRecorder) {
+    }
 
     run() {
-        this.sensor.suscribe((event: SensorEvent) => {
-            if (event.signal === "startMovement"){
+        this.sensor.subscribe((event: SensorEvent) => {
+            if (event.signal === Signals.START_MOVEMENT){
                 this.videoRecorder.start()
             }
         })
@@ -30,38 +34,58 @@ class Orchestrator {
 }
 
 class FakeSensor implements Sensor{
-    suscribe(fn: nSubscribeCallback): void {
-        fn({signal: 'startMovement'})
+    private subscribers: SubscribeCallback[] = []
+    subscribe(fn: SubscribeCallback): void {
+        this.subscribers.push(fn)
+    }
+
+    notify(signal: Signals): void {
+        this.subscribers.forEach(callback => callback({signal}))
     }
 
 }
 
 class FakeVideoRecorder implements VideoRecorder {
+    startedRecording: boolean = false
+
     start() {
-        fs.writeFileSync(path.join(__dirname, 'records/rec.mov'), new Buffer([]))
+        this.startedRecording = true
+    }
+
+    expect_file_to_have_been_created() {
+        expect(this.startedRecording).toBeTruthy()
     }
 
 }
 describe('Video Recorder', () => {
+    it.todo('what happen when start is clicked multiple times')
 
+    it.todo('what happen when stop is clicked')
     it('start video recording when movement is detected', () => {
-        const recordedFile = 'records/rec.mov';
-        fs.exists(recordedFile, (exists) => {
-            if(exists) {
-                fs.unlinkSync(recordedFile)
-            }
-        })
-
-
+        let fakeSensor = new FakeSensor();
+        let fakeVideoRecorder = new FakeVideoRecorder();
         const orchestrator = new Orchestrator(
-            new FakeSensor(),
-            new FakeVideoRecorder()
+            fakeSensor,
+            fakeVideoRecorder
         )
 
         orchestrator.run()
+        fakeSensor.notify(Signals.START_MOVEMENT)
 
-        const file = fs.readFileSync(path.join(__dirname, recordedFile), 'utf-8')
-        expect(file).not.toBeNull()
+        fakeVideoRecorder.expect_file_to_have_been_created();
+    });
+    it('start video recording when movement is detected with jest mocks', async () => {
+        let fakeSensor = new FakeSensor();
+        let fakeVideoRecorder = {start: jest.fn()};
+        const orchestrator = new Orchestrator(
+            fakeSensor,
+            fakeVideoRecorder
+        )
+
+        await orchestrator.run()
+        fakeSensor.notify(Signals.START_MOVEMENT)
+
+        expect(fakeVideoRecorder.start).toHaveBeenCalled()
     });
 
 
