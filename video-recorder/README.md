@@ -1,0 +1,1 @@
+Create a pice of code that receive a signal from a movement censor and trigger the record of a video camara.
