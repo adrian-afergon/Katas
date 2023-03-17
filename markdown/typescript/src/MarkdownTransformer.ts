@@ -1,3 +1,17 @@
+class FileSystem {
+    exists(inputFile: string): boolean {
+        throw new Error('Not implemented yet')
+    }
+
+    readContent(inputFile: string): string {
+        throw new Error('Not implemented yet')
+    }
+
+    write(outputFile: string, transformedMarkDown: void): void {
+        throw new Error('Not implemented yet')
+    }
+}
+
 export class MarkDownTransformer {
     constructor(private fileSystem: FileSystem = new FileSystem()) {}
 
@@ -12,5 +26,9 @@ export class MarkDownTransformer {
         const transformedMarkDown = this.turnLinksIntoFooter(inputContent)
         this.fileSystem.write(outputFile, transformedMarkDown)
 
+    }
+
+    private turnLinksIntoFooter(inputContent: string) {
+        throw new Error('Not implemented yet')
     }
 }
