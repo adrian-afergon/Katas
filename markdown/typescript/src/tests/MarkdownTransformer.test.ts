@@ -1,10 +1,7 @@
 import * as fs from 'fs'
+import {MarkDownTransformer} from "../MarkdownTransformer";
 
-class MarkDownTransformer {
-    transform(inputFile: string, outputFile: string) {
-        throw new Error('Not implemented yet')
-    }
-}
+
 
 describe('Markdown Transform', () => {
     const inputFile = "./input.md"
