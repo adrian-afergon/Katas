@@ -17,6 +17,6 @@ export class MarkDownTransformer {
     }
 
     private turnLinksIntoFooter(inputContent: string): string {
-        throw new Error('Not implemented yet')
+        return new MarkdownPage(inputContent).moveLinksToFootNotesWithAnchors()
     }
 }
