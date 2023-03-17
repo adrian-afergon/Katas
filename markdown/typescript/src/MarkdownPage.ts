@@ -45,8 +45,12 @@ export class MarkdownPage {
         throw new Error('Not implemented yet')
     }
 
-    addFootNotes(replacedText: string, anchorsDictionary: Record<string, Anchor>):string {
-        throw new Error('Not implemented yet')
+    addFootNotes(text: string, anchorsDictionary: Record<string, Anchor>): string {
+        const anchorToFootnote = (footnoteKey: string) => `${footnoteKey}: ${anchorsDictionary[footnoteKey].url}`;
+        return [
+            text,
+            ...Object.keys(anchorsDictionary).map(anchorToFootnote)
+        ].join("\n\n")
     }
 
     private containsAnchor(text: string) {
