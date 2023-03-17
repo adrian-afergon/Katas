@@ -16,8 +16,29 @@ export class MarkdownPage {
         return this.addFootNotes(replacedText, anchorsDictionary);
     }
 
-    findAnchorsAtPage(inputContent: string): Anchor[] {
-        throw new Error('Not implemented yet')
+    findAnchorsAtPage(text: string): Array<Anchor> {
+        const anchors: Array<Anchor> = new Array<Anchor>()
+
+        if (this.containsAnchor(text)) {
+            const openingTag = "["
+            const closingTag = ")";
+            const closingTagPosition = text.indexOf(closingTag);
+            const openingTagPosition = text.indexOf(openingTag)
+
+            const anchoreExpression = text.substring(openingTagPosition, closingTagPosition + closingTag.length)
+            const rest = text.substring(closingTagPosition + closingTag.length)
+            const anchor = Anchor.fromMarkdownExpression(anchoreExpression)
+            anchors.push(anchor)
+
+            const results = this.findAnchorsAtPage(rest);
+            results.forEach(item => {
+                const alreadyInList = anchors.find((current) => current.isEqual(item));
+                if (!alreadyInList) {
+                    anchors.push(item)
+                }
+            })
+        }
+        return anchors
     }
 
     private replaceAnchors(inputContent: string, anchorsDictionary: Record<string, Anchor>): string {
@@ -26,5 +47,9 @@ export class MarkdownPage {
 
     private addFootNotes(replacedText: string, anchorsDictionary: Record<string, Anchor>):string {
         throw new Error('Not implemented yet')
+    }
+
+    private containsAnchor(text: string) {
+        return text.match(/.*\[.*?\]\(.*?\).*/);
     }
 }
