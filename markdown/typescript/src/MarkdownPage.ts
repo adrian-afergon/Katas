@@ -45,7 +45,7 @@ export class MarkdownPage {
         throw new Error('Not implemented yet')
     }
 
-    private addFootNotes(replacedText: string, anchorsDictionary: Record<string, Anchor>):string {
+    addFootNotes(replacedText: string, anchorsDictionary: Record<string, Anchor>):string {
         throw new Error('Not implemented yet')
     }
 

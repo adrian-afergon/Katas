@@ -66,3 +66,26 @@ describe('findAnchorsAtPage', () => {
         expect(dictionary).toEqual(expected)
     });
 });
+
+
+describe('add footnotes', () => {
+    it('should do nothing given no inputs', () => {
+        const inputContent = ""
+        const anchorsDictionary = {}
+
+        expect(new MarkdownPage(inputContent).addFootNotes(inputContent, anchorsDictionary)).toEqual("")
+    });
+
+    it('should do nothing given a text without anchors', () => {
+        const inputContent = "irr"
+        const anchorsDictionary = {}
+
+        expect(new MarkdownPage(inputContent).addFootNotes(inputContent, anchorsDictionary)).toEqual(inputContent)
+    })
+    it('should add to footnotes anchor text from anchor dictionary', () => {
+        expect(new MarkdownPage("[^anchor1]").addFootNotes(
+            "irr text [^anchor1]",
+            {"[^anchor1]": new Anchor("irr url", "irr text")})
+        ).toEqual("irr text [^anchor1]\n\n[^anchor1]: irr url")
+    })
+})
