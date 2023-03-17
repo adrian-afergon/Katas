@@ -4,9 +4,13 @@ export class MarkdownPage {
     }
 
     moveLinksToFootNotesWithAnchors() {
-        // Find Links and store in anchor list
-        // Replace links at input content by anchor text
-        // Add anchors to footnotes
-        return "";
+        const anchors = this.findAnchorsAtPage(this.inputContent)
+        const createDictionaryFromAnchors = (total: Record<string, Anchor>, current: Anchor, index: number) => {
+            return {...total, [`[^anchor${index + 1}]`]: current}
+        };
+        const anchorsDictionary = anchors.reduce(createDictionaryFromAnchors, {})
+
+        const replacedText = this.replaceAnchors(this.inputContent, anchorsDictionary)
+        return this.addFootNotes(replacedText, anchorsDictionary);
     }
 }
