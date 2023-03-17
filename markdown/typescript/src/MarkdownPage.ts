@@ -5,7 +5,7 @@ export class MarkdownPage {
 
     }
 
-    moveLinksToFootNotesWithAnchors() {
+    moveLinksToFootNotesWithAnchors(): string {
         const anchors = this.findAnchorsAtPage(this.inputContent)
         const createDictionaryFromAnchors = (total: Record<string, Anchor>, current: Anchor, index: number) => {
             return {...total, [`[^anchor${index + 1}]`]: current}
@@ -16,15 +16,15 @@ export class MarkdownPage {
         return this.addFootNotes(replacedText, anchorsDictionary);
     }
 
-    private findAnchorsAtPage(inputContent: string): Anchor[] {
+    findAnchorsAtPage(inputContent: string): Anchor[] {
         throw new Error('Not implemented yet')
     }
 
-    private replaceAnchors(inputContent: string, anchorsDictionary: Anchor): string {
+    private replaceAnchors(inputContent: string, anchorsDictionary: Record<string, Anchor>): string {
         throw new Error('Not implemented yet')
     }
 
-    private addFootNotes(replacedText: string, anchorsDictionary: Anchor) {
+    private addFootNotes(replacedText: string, anchorsDictionary: Record<string, Anchor>):string {
         throw new Error('Not implemented yet')
     }
 }
