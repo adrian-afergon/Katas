@@ -42,7 +42,13 @@ export class MarkdownPage {
     }
 
     private replaceAnchors(inputContent: string, anchorsDictionary: Record<string, Anchor>): string {
-        throw new Error('Not implemented yet')
+        const replaceLinkWithAnchor = (content: string, key: string) => {
+            return content.replace(
+                anchorsDictionary[key].toMarkdownExpression(),
+                `${anchorsDictionary[key].text} ${key}`
+            )
+        };
+        return Object.keys(anchorsDictionary).reduce(replaceLinkWithAnchor, inputContent)
     }
 
     addFootNotes(text: string, anchorsDictionary: Record<string, Anchor>): string {

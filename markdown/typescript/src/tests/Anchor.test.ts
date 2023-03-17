@@ -17,4 +17,7 @@ describe('Anchor', () => {
         });
     });
 
+    it('transform anchor to markdown expression', () => {
+        expect(new Anchor("url", "text").toMarkdownExpression()).toBe("[text](url)")
+    });
 });

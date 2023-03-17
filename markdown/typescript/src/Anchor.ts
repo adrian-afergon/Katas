@@ -17,4 +17,9 @@ export class Anchor {
     isEqual(item: Anchor) {
         return this.url === item.url && this.text === item.text;
     }
+
+
+    toMarkdownExpression(): string {
+        return `[${this.text}](${this.url})`;
+    }
 }
