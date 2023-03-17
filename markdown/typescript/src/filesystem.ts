@@ -1,13 +1,15 @@
+import * as fs from "fs";
+
 export class FileSystem {
-    exists(inputFile: string): boolean {
-        throw new Error('Not implemented yet')
+    exists(inputFile: string) {
+        return fs.existsSync(inputFile)
     }
 
     readContent(inputFile: string): string {
-        throw new Error('Not implemented yet')
+        return fs.readFileSync(inputFile).toString()
     }
 
     write(outputFile: string, transformedMarkDown: string): void {
-        throw new Error('Not implemented yet')
+        fs.writeFileSync(outputFile, transformedMarkDown)
     }
 }
