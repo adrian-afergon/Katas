@@ -1,14 +1,5 @@
 import {FileSystem} from "./filesystem";
-
-class MarkdownPage {
-    constructor(private readonly inputContent: string) {
-
-    }
-
-    moveLinksToFootNotesWithAnchors() {
-        return "";
-    }
-}
+import {MarkdownPage} from "./MarkdownPage";
 
 export class MarkDownTransformer {
     constructor(private fileSystem: FileSystem = new FileSystem()) {}
