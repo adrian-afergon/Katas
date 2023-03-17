@@ -16,7 +16,7 @@ export class MarkdownPage {
         return this.addFootNotes(replacedText, anchorsDictionary);
     }
 
-    findAnchorsAtPage(text: string): Array<Anchor> {
+    private findAnchorsAtPage(text: string): Array<Anchor> {
         const anchors: Array<Anchor> = new Array<Anchor>()
 
         if (this.containsAnchor(text)) {
@@ -51,7 +51,7 @@ export class MarkdownPage {
         return Object.keys(anchorsDictionary).reduce(replaceLinkWithAnchor, inputContent)
     }
 
-    addFootNotes(text: string, anchorsDictionary: Record<string, Anchor>): string {
+    private addFootNotes(text: string, anchorsDictionary: Record<string, Anchor>): string {
         const anchorToFootnote = (footnoteKey: string) => `${footnoteKey}: ${anchorsDictionary[footnoteKey].url}`;
         return [
             text,
