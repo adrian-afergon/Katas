@@ -1,19 +1,24 @@
 import {Anchor} from "./Anchor";
 
 export class MarkdownPage {
-    constructor(private readonly inputContent: string) {
+    constructor(private readonly rawMarkdown: string) {
 
     }
 
     moveLinksToFootNotesWithAnchors(): string {
-        const anchors = this.findAnchorsAtPage(this.inputContent)
+        const anchors = this.createAnchorsDictionary(
+            this.findAnchorsAtPage(this.rawMarkdown)
+        );
+        const replacedText = this.replaceAnchors(this.rawMarkdown, anchors)
+        return this.addFootNotes(replacedText, anchors);
+    }
+
+    private createAnchorsDictionary(anchors: Array<Anchor>) {
         const createDictionaryFromAnchors = (total: Record<string, Anchor>, current: Anchor, index: number) => {
             return {...total, [`[^anchor${index + 1}]`]: current}
         };
         const anchorsDictionary = anchors.reduce(createDictionaryFromAnchors, {})
-
-        const replacedText = this.replaceAnchors(this.inputContent, anchorsDictionary)
-        return this.addFootNotes(replacedText, anchorsDictionary);
+        return anchorsDictionary;
     }
 
     private findAnchorsAtPage(text: string): Array<Anchor> {
@@ -25,9 +30,9 @@ export class MarkdownPage {
             const closingTagPosition = text.indexOf(closingTag);
             const openingTagPosition = text.indexOf(openingTag)
 
-            const anchoreExpression = text.substring(openingTagPosition, closingTagPosition + closingTag.length)
+            const anchorExpression = text.substring(openingTagPosition, closingTagPosition + closingTag.length)
             const rest = text.substring(closingTagPosition + closingTag.length)
-            const anchor = Anchor.fromMarkdownExpression(anchoreExpression)
+            const anchor = Anchor.fromMarkdownExpression(anchorExpression)
             anchors.push(anchor)
 
             const results = this.findAnchorsAtPage(rest);

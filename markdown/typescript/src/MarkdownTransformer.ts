@@ -1,19 +1,19 @@
-import {FileSystem} from "./filesystem";
+import {MarkdownPersistence} from "./markdownPersistence";
 import {MarkdownPage} from "./MarkdownPage";
 
 export class MarkDownTransformer {
-    constructor(private fileSystem: FileSystem = new FileSystem()) {}
+    constructor(private fileSystem: MarkdownPersistence = new MarkdownPersistence()) {}
 
-    transform(inputFile: string, outputFile: string) {
-        if(!this.fileSystem.exists(inputFile)) {
+    transform(inputFilePath: string, outputFilePath: string) {
+        if(!this.fileSystem.exists(inputFilePath)) {
             throw new Error("Input file does not exists")
         }
-        if(this.fileSystem.exists(outputFile)) {
+        if(this.fileSystem.exists(outputFilePath)) {
             throw new Error("Output file already exists")
         }
-        const inputContent = this.fileSystem.readContent(inputFile)
-        const transformedMarkDown = this.turnLinksIntoFooter(inputContent)
-        this.fileSystem.write(outputFile, transformedMarkDown)
+        const rawMarkdown = this.fileSystem.readContent(inputFilePath)
+        const transformedMarkDown = this.turnLinksIntoFooter(rawMarkdown)
+        this.fileSystem.writeContent(outputFilePath, transformedMarkDown)
 
     }
 

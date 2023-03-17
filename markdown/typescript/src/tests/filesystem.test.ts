@@ -1,8 +1,8 @@
-import {FileSystem} from "../fileSystem";
+import {MarkdownPersistence} from "../markdownPersistence";
 import * as fs from "fs";
 
 describe('FileSystem', () => {
-    const fileSystem = new FileSystem()
+    const fileSystem = new MarkdownPersistence()
     const inputFile = 'irrelevant.txt';
 
     beforeEach(() => {
@@ -35,7 +35,7 @@ describe('FileSystem', () => {
 
     it('write content into a file', () => {
         const contentToBeWritten = 'irrelevant content to be writed';
-        fileSystem.write(inputFile, contentToBeWritten)
+        fileSystem.writeContent(inputFile, contentToBeWritten)
 
         const fileContent = fs.readFileSync(inputFile).toString();
         expect(fileContent).toBe(contentToBeWritten)
