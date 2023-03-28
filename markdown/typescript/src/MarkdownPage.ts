@@ -5,12 +5,12 @@ export class MarkdownPage {
 
     }
 
-    moveLinksToFootNotesWithAnchors(): string {
+    moveLinksToFootNotesWithAnchors(): MarkdownPage {
         const anchors = this.createAnchorsDictionary(
             this.findAnchorsAtPage(this.rawMarkdown)
         );
         const replacedText = this.replaceAnchors(this.rawMarkdown, anchors)
-        return this.addFootNotes(replacedText, anchors);
+        return new MarkdownPage(this.addFootNotes(replacedText, anchors));
     }
 
     private createAnchorsDictionary(anchors: Array<Anchor>) {
@@ -66,5 +66,9 @@ export class MarkdownPage {
 
     private containsAnchor(text: string) {
         return text.match(/.*\[.*?\]\(.*?\).*/);
+    }
+
+    plainText() {
+        return this.rawMarkdown
     }
 }

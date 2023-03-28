@@ -1,5 +1,4 @@
 import {MarkdownPersistence} from "./markdownPersistence";
-import {MarkdownPage} from "./MarkdownPage";
 
 export class MarkDownTransformer {
     constructor(private fileSystem: MarkdownPersistence = new MarkdownPersistence()) {}
@@ -11,13 +10,9 @@ export class MarkDownTransformer {
         if(this.fileSystem.exists(outputFilePath)) {
             throw new Error("Output file already exists")
         }
-        const rawMarkdown = this.fileSystem.readContent(inputFilePath)
-        const transformedMarkDown = this.turnLinksIntoFooter(rawMarkdown)
+        const markdownPage = this.fileSystem.readContent(inputFilePath)
+        const transformedMarkDown = markdownPage.moveLinksToFootNotesWithAnchors()
         this.fileSystem.writeContent(outputFilePath, transformedMarkDown)
 
-    }
-
-    private turnLinksIntoFooter(inputContent: string): string {
-        return new MarkdownPage(inputContent).moveLinksToFootNotesWithAnchors()
     }
 }

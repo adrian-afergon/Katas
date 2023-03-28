@@ -1,5 +1,6 @@
 import {MarkdownPersistence} from "../markdownPersistence";
 import * as fs from "fs";
+import {MarkdownPage} from "../MarkdownPage";
 
 describe('FileSystem', () => {
     const fileSystem = new MarkdownPersistence()
@@ -30,15 +31,15 @@ describe('FileSystem', () => {
         fs.writeFileSync(inputFile, fileContent)
         const content = fileSystem.readContent(inputFile);
 
-        expect(content).toBe(fileContent)
+        expect(content.plainText()).toBe(new MarkdownPage(fileContent).plainText())
     });
 
     it('write content into a file', () => {
-        const contentToBeWritten = 'irrelevant content to be writed';
+        const contentToBeWritten = new MarkdownPage('irrelevant content to be wrote');
         fileSystem.writeContent(inputFile, contentToBeWritten)
 
         const fileContent = fs.readFileSync(inputFile).toString();
-        expect(fileContent).toBe(contentToBeWritten)
+        expect(fileContent).toBe(contentToBeWritten.plainText())
     });
 
 });

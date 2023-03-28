@@ -1,5 +1,4 @@
 import {MarkdownPage} from "../MarkdownPage";
-import {Anchor} from "../Anchor";
 
 it.each([
     ['', ''],
@@ -14,6 +13,6 @@ it.each([
     (input, expected) => {
         const markdownWithFootNotes = new MarkdownPage(input).moveLinksToFootNotesWithAnchors()
 
-        expect(markdownWithFootNotes).toBe(expected)
+        expect(markdownWithFootNotes.plainText()).toBe(new MarkdownPage(expected).plainText())
     }
 )
