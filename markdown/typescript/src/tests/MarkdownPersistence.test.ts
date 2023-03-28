@@ -1,4 +1,4 @@
-import {MarkdownPersistence} from "../markdownPersistence";
+import {MarkdownPersistence} from "../MarkdownPersistence";
 import * as fs from "fs";
 import {MarkdownPage} from "../MarkdownPage";
 

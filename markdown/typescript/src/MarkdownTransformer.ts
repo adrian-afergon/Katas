@@ -1,4 +1,4 @@
-import {MarkdownPersistence} from "./markdownPersistence";
+import {MarkdownPersistence} from "./MarkdownPersistence";
 
 export class MarkDownTransformer {
     constructor(private fileSystem: MarkdownPersistence = new MarkdownPersistence()) {}

@@ -1,4 +1,5 @@
 import {Anchor} from "./Anchor";
+import {Anchors} from "./Anchors";
 
 export class MarkdownPage {
     constructor(private readonly rawMarkdown: string) {
@@ -6,19 +7,11 @@ export class MarkdownPage {
     }
 
     moveLinksToFootNotesWithAnchors(): MarkdownPage {
-        const anchors = this.createAnchorsDictionary(
+        const anchors = Anchors.fromList(
             this.findAnchorsAtPage(this.rawMarkdown)
         );
         const replacedText = this.replaceAnchors(this.rawMarkdown, anchors)
         return new MarkdownPage(this.addFootNotes(replacedText, anchors));
-    }
-
-    private createAnchorsDictionary(anchors: Array<Anchor>) {
-        const createDictionaryFromAnchors = (total: Record<string, Anchor>, current: Anchor, index: number) => {
-            return {...total, [`[^anchor${index + 1}]`]: current}
-        };
-        const anchorsDictionary = anchors.reduce(createDictionaryFromAnchors, {})
-        return anchorsDictionary;
     }
 
     private findAnchorsAtPage(text: string): Array<Anchor> {
@@ -46,21 +39,21 @@ export class MarkdownPage {
         return anchors
     }
 
-    private replaceAnchors(inputContent: string, anchorsDictionary: Record<string, Anchor>): string {
+    private replaceAnchors(inputContent: string, anchorsDictionary: Anchors): string {
         const replaceLinkWithAnchor = (content: string, key: string) => {
             return content.replace(
-                anchorsDictionary[key].toMarkdownExpression(),
-                `${anchorsDictionary[key].text} ${key}`
+                anchorsDictionary.value[key].toMarkdownExpression(),
+                `${anchorsDictionary.value[key].text} ${key}`
             )
         };
-        return Object.keys(anchorsDictionary).reduce(replaceLinkWithAnchor, inputContent)
+        return Object.keys(anchorsDictionary.value).reduce(replaceLinkWithAnchor, inputContent)
     }
 
-    private addFootNotes(text: string, anchorsDictionary: Record<string, Anchor>): string {
-        const anchorToFootnote = (footnoteKey: string) => `${footnoteKey}: ${anchorsDictionary[footnoteKey].url}`;
+    private addFootNotes(text: string, anchorsDictionary: Anchors): string {
+        const anchorToFootnote = (footnoteKey: string) => `${footnoteKey}: ${anchorsDictionary.value[footnoteKey].url}`;
         return [
             text,
-            ...Object.keys(anchorsDictionary).map(anchorToFootnote)
+            ...Object.keys(anchorsDictionary.value).map(anchorToFootnote)
         ].join("\n\n")
     }
 
